@@ -27,12 +27,14 @@ export default function Events() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-[#F6EFE7]/80 backdrop-blur-md p-3 sm:p-4 rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col group hover:shadow-xl transition-all duration-300"
+          className="bg-[#F6EFE7] md:bg-[#F6EFE7]/80 md:backdrop-blur-md p-3 sm:p-4 rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col group hover:shadow-xl transition-all duration-300"
         >
           <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden mb-6">
             <img 
               src="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?auto=format&fit=crop&w=800&q=80" 
               alt="Private Events" 
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
             />
           </div>
@@ -52,12 +54,14 @@ export default function Events() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-[#F6EFE7]/80 backdrop-blur-md p-3 sm:p-4 rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col group hover:shadow-xl transition-all duration-300"
+          className="bg-[#F6EFE7] md:bg-[#F6EFE7]/80 md:backdrop-blur-md p-3 sm:p-4 rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col group hover:shadow-xl transition-all duration-300"
         >
           <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden mb-6">
             <img 
               src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" 
               alt="Catering" 
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
             />
           </div>
@@ -77,7 +81,7 @@ export default function Events() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="col-span-1 md:col-span-2 bg-[#F6EFE7]/80 backdrop-blur-md p-3 sm:p-4 rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col md:flex-row group hover:shadow-xl transition-all duration-300"
+          className="col-span-1 md:col-span-2 bg-[#F6EFE7] md:bg-[#F6EFE7]/80 md:backdrop-blur-md p-3 sm:p-4 rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col md:flex-row group hover:shadow-xl transition-all duration-300"
         >
           {/* Text Side */}
           <div className="flex-1 px-4 sm:px-8 py-8 md:py-12 flex flex-col justify-center order-2 md:order-1">
@@ -106,6 +110,8 @@ export default function Events() {
             <img 
               src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=1200&q=80" 
               alt="Custom Menus" 
+              loading="lazy"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
             />
           </div>

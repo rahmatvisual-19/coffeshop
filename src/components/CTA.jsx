@@ -10,7 +10,7 @@ export default function CTA() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="w-full bg-[#F6EFE7]/80 backdrop-blur-md border border-white/50 rounded-[2rem] sm:rounded-[2.5rem] px-4 py-10 sm:p-8 md:p-12 lg:p-16 flex flex-col md:flex-row justify-between items-center md:items-center gap-10 sm:gap-12 md:gap-16 shadow-sm mx-2"
+        className="w-full bg-[#F6EFE7] md:bg-[#F6EFE7]/80 md:backdrop-blur-md border border-white/50 rounded-[2rem] sm:rounded-[2.5rem] px-4 py-10 sm:p-8 md:p-12 lg:p-16 flex flex-col md:flex-row justify-between items-center md:items-center gap-10 sm:gap-12 md:gap-16 shadow-sm mx-2"
       >
         
         {/* Left Side: Text */}

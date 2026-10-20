@@ -1,16 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Caveat+Brush&family=Inter:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
   background-color: #F8F2EA;
-  overflow-x: hidden;
-  max-width: 100%;
+  overflow-x: clip;
+}
+
+#root {
+  overflow-x: clip;
+  width: 100%;
 }
 
 @theme {

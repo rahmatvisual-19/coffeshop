@@ -26,6 +26,10 @@ const ImageTrail = ({
     useMouseVector(containerRef)
   const lastMousePosRef = useRef(mousePosition)
   const currentIndexRef = useRef(0)
+  const isTouchRef = useRef(
+    typeof window !== "undefined" &&
+      (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768)
+  )
   // Convert children to array for random selection
   const childrenArray = useMemo(() => Children.toArray(children), [children])
 
@@ -63,6 +67,8 @@ const ImageTrail = ({
   }, [])
 
   useAnimationFrame((time, delta) => {
+    if (isTouchRef.current) return
+
     // Skip if mouse hasn't moved
     if (
       lastMousePosRef.current.x === mousePosition.x &&

@@ -69,17 +69,19 @@ export default function Menu() {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
               key={item.id}
-              className="bg-[#F6EFE7]/80 backdrop-blur-md p-1.5 sm:p-2.5 md:p-3 rounded-[1.5rem] sm:rounded-[2rem] shadow-sm border border-white/50 flex flex-col group cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="bg-[#F6EFE7] md:bg-[#F6EFE7]/80 md:backdrop-blur-md p-1.5 sm:p-2.5 md:p-3 rounded-[1.5rem] sm:rounded-[2rem] shadow-sm border border-white/50 flex flex-col group cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="relative w-full aspect-[4/5] rounded-[1.25rem] sm:rounded-[1.5rem] overflow-hidden">
                 <img 
                   src={item.image} 
                   alt={item.name} 
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                 />
                 
                 {/* Item Name Overlay */}
-                <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3 py-1.5 sm:py-3 rounded-full bg-white/40 backdrop-blur-md border border-white/40 text-center shadow-[0_4px_12px_rgba(0,0,0,0.1)] group-hover:bg-white/60 transition-colors duration-300 overflow-hidden text-ellipsis whitespace-nowrap px-2 sm:px-4">
+                <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3 py-1.5 sm:py-3 rounded-full bg-white/90 md:bg-white/40 md:backdrop-blur-md border border-white/40 text-center shadow-[0_4px_12px_rgba(0,0,0,0.1)] group-hover:bg-white/60 transition-colors duration-300 overflow-hidden text-ellipsis whitespace-nowrap px-2 sm:px-4">
                   <span 
                     className="font-bold text-[15px] sm:text-xl tracking-wide text-[#2E1A11]" 
                     style={{ fontFamily: "'Caveat', cursive" }}

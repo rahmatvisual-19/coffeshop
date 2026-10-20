@@ -62,7 +62,7 @@ export default function HoursLocation() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-[#F6EFE7]/80 backdrop-blur-md p-4 sm:p-7 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col justify-between group hover:shadow-xl transition-all duration-300"
+          className="bg-[#F6EFE7] md:bg-[#F6EFE7]/80 md:backdrop-blur-md p-4 sm:p-7 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col justify-between group hover:shadow-xl transition-all duration-300"
         >
           <div>
             {/* Live Status Badge */}
@@ -122,7 +122,7 @@ export default function HoursLocation() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-[#F6EFE7]/80 backdrop-blur-md p-4 sm:p-7 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col justify-between group hover:shadow-xl transition-all duration-300"
+          className="bg-[#F6EFE7] md:bg-[#F6EFE7]/80 md:backdrop-blur-md p-4 sm:p-7 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col justify-between group hover:shadow-xl transition-all duration-300"
         >
           <div>
             {/* Header info */}
@@ -167,6 +167,8 @@ export default function HoursLocation() {
               <img 
                 src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=800&q=80" 
                 alt="Joe's Coffee Storefront & Patio" 
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />

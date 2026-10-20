@@ -123,39 +123,14 @@ export default function About() {
       ref={sectionRef}
       className="w-full py-24 px-4 sm:px-6 md:px-12 text-[#2E1A11] overflow-hidden relative z-20"
     >
-      {/* Decorative background elements */}
+      {/* Decorative background elements (Desktop only to keep mobile scroll at 60fps) */}
       <motion.div
-        className="absolute top-20 left-10 w-72 h-72 rounded-full bg-[#8A5233]/10 blur-3xl pointer-events-none"
+        className="hidden md:block absolute top-20 left-10 w-72 h-72 rounded-full bg-[#8A5233]/10 blur-3xl pointer-events-none will-change-transform"
         style={{ y: y1, rotate: rotate1 }}
       />
       <motion.div
-        className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-[#D5C2B2]/25 blur-3xl pointer-events-none"
+        className="hidden md:block absolute bottom-20 right-10 w-80 h-80 rounded-full bg-[#D5C2B2]/25 blur-3xl pointer-events-none will-change-transform"
         style={{ y: y2, rotate: rotate2 }}
-      />
-      <motion.div
-        className="absolute top-1/2 left-1/4 w-4 h-4 rounded-full bg-[#8A5233]/30 pointer-events-none"
-        animate={{
-          y: [0, -15, 0],
-          opacity: [0.5, 1, 0.5],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-1/3 right-1/4 w-6 h-6 rounded-full bg-[#D5C2B2]/40 pointer-events-none"
-        animate={{
-          y: [0, 20, 0],
-          opacity: [0.5, 1, 0.5],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-          delay: 1,
-        }}
       />
 
       <motion.div
@@ -225,6 +200,8 @@ export default function About() {
                 <img
                   src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=800&q=80"
                   alt="Artisan Coffee Craft"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
                 <motion.div
@@ -264,32 +241,6 @@ export default function About() {
                 style={{ y: y2 }}
               />
 
-              {/* Additional decorative elements */}
-              <motion.div
-                className="absolute -top-8 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#8A5233]"
-                animate={{
-                  y: [0, -10, 0],
-                  opacity: [0.5, 1, 0.5],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              />
-              <motion.div
-                className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#D5C2B2]"
-                animate={{
-                  y: [0, 10, 0],
-                  opacity: [0.5, 1, 0.5],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                  delay: 0.5,
-                }}
-              />
             </motion.div>
           </div>
 
@@ -405,7 +356,7 @@ function StatCounter({ icon, value, label, suffix, delay }) {
 
   return (
     <motion.div
-      className="bg-white/50 backdrop-blur-md p-6 rounded-[2rem] border border-white/60 flex flex-col items-center text-center group hover:bg-white/80 transition-all duration-300 shadow-sm"
+      className="bg-[#F6EFE7] md:bg-white/50 md:backdrop-blur-md p-6 rounded-[2rem] border border-white/60 flex flex-col items-center text-center group hover:bg-white/80 transition-all duration-300 shadow-sm"
       variants={{
         hidden: { opacity: 0, y: 20 },
         visible: {

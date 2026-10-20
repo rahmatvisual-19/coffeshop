@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 export const useMouseVector = (containerRef) => {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [vector, setVector] = useState({ dx: 0, dy: 0 })
+  const lastPosition = useRef({ x: 0, y: 0 })
+  const ticking = useRef(false)
 
   useEffect(() => {
-    let lastPosition = { x: 0, y: 0 }
+    // Only listen on devices with fine pointer (mouse), disable on touch to prevent mobile scroll stutter
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches
+    if (isTouchDevice) return
 
     const updatePosition = (x, y) => {
       let newX, newY
@@ -19,53 +23,40 @@ export const useMouseVector = (containerRef) => {
         newY = y
       }
 
-      // Calculate the movement vector
-      const dx = newX - lastPosition.x
-      const dy = newY - lastPosition.y
+      const dx = newX - lastPosition.current.x
+      const dy = newY - lastPosition.current.y
 
       setVector({ dx, dy })
       setPosition({ x: newX, y: newY })
-      lastPosition = { x: newX, y: newY }
+      lastPosition.current = { x: newX, y: newY }
     }
 
     const handleMouseMove = (ev) => {
-      if (containerRef && containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect()
-        if (
-          ev.clientX < rect.left ||
-          ev.clientX > rect.right ||
-          ev.clientY < rect.top ||
-          ev.clientY > rect.bottom
-        ) {
-          return // Cursor is outside the container
-        }
+      if (!ticking.current) {
+        window.requestAnimationFrame(() => {
+          if (containerRef && containerRef.current) {
+            const rect = containerRef.current.getBoundingClientRect()
+            if (
+              ev.clientX < rect.left ||
+              ev.clientX > rect.right ||
+              ev.clientY < rect.top ||
+              ev.clientY > rect.bottom
+            ) {
+              ticking.current = false
+              return
+            }
+          }
+          updatePosition(ev.clientX, ev.clientY)
+          ticking.current = false
+        })
+        ticking.current = true
       }
-      updatePosition(ev.clientX, ev.clientY)
     }
 
-    const handleTouchMove = (ev) => {
-      const touch = ev.touches[0]
-      if (containerRef && containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect()
-        if (
-          touch.clientX < rect.left ||
-          touch.clientX > rect.right ||
-          touch.clientY < rect.top ||
-          touch.clientY > rect.bottom
-        ) {
-          return // Touch is outside the container
-        }
-      }
-      updatePosition(touch.clientX, touch.clientY)
-    }
-
-    // Listen for both mouse and touch events
-    window.addEventListener("mousemove", handleMouseMove)
-    window.addEventListener("touchmove", handleTouchMove)
+    window.addEventListener("mousemove", handleMouseMove, { passive: true })
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("touchmove", handleTouchMove)
     }
   }, [containerRef])
 
