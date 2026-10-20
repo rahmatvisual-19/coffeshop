@@ -24,13 +24,13 @@ export default function Footer() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="w-full bg-[#2E1A11] rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] pt-16 sm:pt-20 md:pt-28 pb-8 px-8 md:px-16 lg:px-24 flex flex-col relative overflow-hidden"
+        className="w-full bg-[#2E1A11] rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] pt-12 sm:pt-20 md:pt-28 pb-8 px-5 sm:px-10 md:px-16 lg:px-24 flex flex-col relative overflow-hidden"
       >
         
         {/* Huge Title */}
         <div className="flex justify-center items-center w-full mb-8 sm:mb-12 md:mb-16">
           <h1 
-            className="text-[60px] sm:text-[90px] md:text-[120px] lg:text-[150px] xl:text-[180px] font-bold text-[#F3E8DB] tracking-wide text-center leading-none"
+            className="text-[44px] min-[380px]:text-[56px] sm:text-[90px] md:text-[120px] lg:text-[150px] xl:text-[180px] font-bold text-[#F3E8DB] tracking-wide text-center leading-none"
             style={{ fontFamily: "'Caveat', cursive" }}
           >
             Joe's Coffee
@@ -40,7 +40,7 @@ export default function Footer() {
         {/* Links Section */}
         <div className="w-full flex justify-center border-t border-white/10 pt-8 md:pt-10">
           
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-12 sm:gap-16 md:gap-32 lg:gap-48">
+          <div className="grid grid-cols-2 min-[540px]:grid-cols-3 gap-8 sm:gap-16 md:gap-32 lg:gap-48">
             {links.map((column, idx) => (
               <div key={idx} className="flex flex-col gap-4 sm:gap-6">
                 {column.items.map((item, i) => (

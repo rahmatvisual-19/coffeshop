@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { motion } from 'framer-motion';
-import { AnimationContext } from '../App';
+import { AnimationContext, OrderContext } from '../App';
 
 export default function Hero() {
   const { isWelcomeComplete } = useContext(AnimationContext);
+  const { openOrder } = useContext(OrderContext);
 
   return (
     <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-16 lg:px-24 pt-32 pb-8 md:pb-10 flex flex-col">
@@ -32,7 +33,10 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-row justify-center md:justify-end items-center gap-3 sm:gap-4 w-full">
-            <button className="group bg-[#2E1A11] text-[#F3E8DB] w-[130px] sm:w-[160px] h-[46px] sm:h-[50px] flex justify-center items-center rounded-full text-[14px] sm:text-base font-medium shadow-[0_10px_20px_rgba(46,26,17,0.4),inset_0_3px_4px_rgba(255,255,255,0.15),inset_0_-4px_6px_rgba(0,0,0,0.5)] hover:bg-[#3E2417] active:translate-y-0.5 active:shadow-[0_5px_10px_rgba(46,26,17,0.4),inset_0_2px_3px_rgba(255,255,255,0.1),inset_0_-2px_4px_rgba(0,0,0,0.5)] transition-all duration-500 hover:rotate-3 hover:scale-95 cursor-pointer whitespace-nowrap">
+            <button 
+              onClick={openOrder}
+              className="group bg-[#2E1A11] text-[#F3E8DB] w-[130px] sm:w-[160px] h-[46px] sm:h-[50px] flex justify-center items-center rounded-full text-[14px] sm:text-base font-medium shadow-[0_10px_20px_rgba(46,26,17,0.4),inset_0_3px_4px_rgba(255,255,255,0.15),inset_0_-4px_6px_rgba(0,0,0,0.5)] hover:bg-[#3E2417] active:translate-y-0.5 active:shadow-[0_5px_10px_rgba(46,26,17,0.4),inset_0_2px_3px_rgba(255,255,255,0.1),inset_0_-2px_4px_rgba(0,0,0,0.5)] transition-all duration-500 hover:rotate-3 hover:scale-95 cursor-pointer whitespace-nowrap"
+            >
               <div className="relative overflow-hidden h-[20px] sm:h-[24px] w-full text-center">
                 <p className="group-hover:-translate-y-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] leading-tight sm:leading-normal">
                   Order Now

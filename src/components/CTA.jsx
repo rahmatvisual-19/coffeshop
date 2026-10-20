@@ -28,16 +28,21 @@ export default function CTA() {
         <div className="flex flex-row justify-center md:justify-end lg:justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 flex-1 w-full mt-6 md:mt-0">
           
           {/* WhatsApp Button */}
-          <div className="flex flex-col items-center group cursor-pointer">
-            <button className="w-[64px] h-[64px] sm:w-[76px] sm:h-[76px] md:w-[90px] md:h-[90px] lg:w-[110px] lg:h-[110px] bg-[#2E1A11] rounded-full flex justify-center items-center text-[#F3E8DB] shadow-[0_15px_30px_rgba(46,26,17,0.4),inset_0_4px_6px_rgba(255,255,255,0.15),inset_0_-4px_8px_rgba(0,0,0,0.5)] group-hover:bg-[#3E2417] group-active:translate-y-1 group-active:shadow-[0_10px_20px_rgba(46,26,17,0.4),inset_0_3px_5px_rgba(255,255,255,0.1),inset_0_-3px_6px_rgba(0,0,0,0.5)] transition-all duration-300">
+          <a 
+            href="https://wa.me/6282184668503" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex flex-col items-center group cursor-pointer"
+          >
+            <div className="w-[64px] h-[64px] sm:w-[76px] sm:h-[76px] md:w-[90px] md:h-[90px] lg:w-[110px] lg:h-[110px] bg-[#2E1A11] rounded-full flex justify-center items-center text-[#F3E8DB] shadow-[0_15px_30px_rgba(46,26,17,0.4),inset_0_4px_6px_rgba(255,255,255,0.15),inset_0_-4px_8px_rgba(0,0,0,0.5)] group-hover:bg-[#3E2417] group-active:translate-y-1 group-active:shadow-[0_10px_20px_rgba(46,26,17,0.4),inset_0_3px_5px_rgba(255,255,255,0.1),inset_0_-3px_6px_rgba(0,0,0,0.5)] transition-all duration-300">
               <svg stroke="currentColor" fill="none" strokeWidth="1.5" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-12 lg:h-12 transition-transform duration-300 group-hover:scale-110">
                 <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
               </svg>
-            </button>
+            </div>
             <span className="text-[#4A3222] text-xs sm:text-sm md:text-[15px] lg:text-base font-medium mt-3 sm:mt-4 md:mt-5 transition-colors duration-300 group-hover:text-[#2E1A11]">
               Whatsapp
             </span>
-          </div>
+          </a>
 
           {/* Email Button */}
           <div className="flex flex-col items-center group cursor-pointer">
