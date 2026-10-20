@@ -92,7 +92,7 @@ export default function Navbar() {
       <motion.nav 
         className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
           scrolled && !isOpen 
-            ? 'bg-[#F8F2EA]/85 backdrop-blur-md shadow-[0_4px_20px_rgba(46,26,17,0.06)] border-b border-[#2E1A11]/5' 
+            ? 'bg-[#F8F2EA]/85 backdrop-blur-md shadow-[0_4px_20px_rgba(46,26,17,0.06)]' 
             : 'bg-transparent'
         }`}
         initial={!isWelcomeComplete ? { opacity: 0, y: -20 } : false}

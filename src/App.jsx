@@ -18,29 +18,32 @@ import OrderModal from "./components/OrderModal";
 export const AnimationContext = React.createContext({ isWelcomeComplete: true });
 export const OrderContext = React.createContext({ openOrder: () => {} });
 
+// Isolate modal open/close state so toggling the popup does NOT re-render the 10 landing page sections!
+function OrderModalController({ children }) {
+  const [isOrderOpen, setIsOrderOpen] = useState(false);
+  const openOrder = React.useCallback(() => setIsOrderOpen(true), []);
+  const closeOrder = React.useCallback(() => setIsOrderOpen(false), []);
+
+  return (
+    <OrderContext.Provider value={{ openOrder }}>
+      {children}
+      {/* Global Coffee Ordering Popup Modal */}
+      <OrderModal isOpen={isOrderOpen} onClose={closeOrder} />
+    </OrderContext.Provider>
+  );
+}
+
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [maskExpanded, setMaskExpanded] = useState(false);
   const [isWelcomeComplete, setIsWelcomeComplete] = useState(false);
-  const [isOrderOpen, setIsOrderOpen] = useState(false);
-
-  const openOrder = React.useCallback(() => setIsOrderOpen(true), []);
-  const closeOrder = React.useCallback(() => setIsOrderOpen(false), []);
 
   useEffect(() => {
-    // // Temporarily disable localStorage check for easy testing
-    // const hasVisited = localStorage.getItem('hasVisited');
-    // if (hasVisited) {
-    //   setShowWelcome(false);
-    //   setMaskExpanded(true);
-    //   setIsWelcomeComplete(true);
-    // } else {
-      // Stage 4 (stain expansion) starts at 2.4s
-      const t = setTimeout(() => {
-        setMaskExpanded(true);
-      }, 2400);
-      return () => clearTimeout(t);
-    // }
+    // Stage 4 (stain expansion) starts at 2.4s
+    const t = setTimeout(() => {
+      setMaskExpanded(true);
+    }, 2400);
+    return () => clearTimeout(t);
   }, []);
 
   const handleWelcomeComplete = React.useCallback(() => {
@@ -51,7 +54,7 @@ function App() {
 
   return (
     <AnimationContext.Provider value={{ isWelcomeComplete }}>
-      <OrderContext.Provider value={{ openOrder }}>
+      <OrderModalController>
         {/* Background layer for Welcome Screen */}
         {showWelcome && <WelcomeScreen onComplete={handleWelcomeComplete} />}
 
@@ -78,10 +81,7 @@ function App() {
             <Footer />
           </BackgroundGradientAnimation>
         </div>
-
-        {/* Global Coffee Ordering Popup Modal */}
-        <OrderModal isOpen={isOrderOpen} onClose={closeOrder} />
-      </OrderContext.Provider>
+      </OrderModalController>
     </AnimationContext.Provider>
   );
 }

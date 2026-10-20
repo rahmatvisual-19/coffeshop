@@ -33,17 +33,20 @@ export default function OrderModal({ isOpen, onClose }) {
     setOrderTicket(null);
   };
 
-  // Lock body scroll when modal is active
+  // Lock body scroll when modal is active using RAF to avoid blocking first frame
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      const raf = requestAnimationFrame(() => {
+        document.body.style.overflow = 'hidden';
+      });
+      return () => {
+        cancelAnimationFrame(raf);
+        document.body.style.overflow = '';
+      };
     } else {
       document.body.style.overflow = '';
       resetForm();
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
   }, [isOpen]);
 
   // Handle ESC key
@@ -90,24 +93,27 @@ export default function OrderModal({ isOpen, onClose }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[120] flex items-end sm:items-center justify-center sm:p-4">
+        <div className="fixed inset-0 z-[120] flex items-end sm:items-center justify-center sm:p-4 overscroll-contain">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#1A0E08]/75 backdrop-blur-sm cursor-pointer"
+            onTouchMove={(e) => e.preventDefault()}
+            className="fixed inset-0 bg-[#1A0E08]/80 md:backdrop-blur-sm cursor-pointer"
+            style={{ willChange: "opacity" }}
           />
 
           {/* Modal Card / Bottom Sheet on Mobile */}
           <motion.div
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 60 }}
-            transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-            className="relative w-full max-w-lg bg-[#FAF5EE] rounded-t-[2rem] sm:rounded-[2rem] shadow-[0_-10px_40px_rgba(46,26,17,0.25),0_25px_50px_rgba(46,26,17,0.35)] border border-[#E8DACB] p-5 sm:p-7 z-10 max-h-[92dvh] flex flex-col"
+            exit={{ opacity: 0, y: 40 }}
+            transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            style={{ willChange: "transform, opacity", transform: "translateZ(0)" }}
+            className="relative w-full max-w-lg bg-[#FAF5EE] rounded-t-[2rem] sm:rounded-[2rem] shadow-[0_-4px_24px_rgba(46,26,17,0.18)] sm:shadow-[0_20px_50px_rgba(46,26,17,0.3)] border border-[#E8DACB] p-5 sm:p-7 z-10 max-h-[92dvh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile Sheet Drag Handle */}
@@ -168,35 +174,39 @@ export default function OrderModal({ isOpen, onClose }) {
 
                   {/* Customer Name */}
                   <div>
-                    <label className="block text-xs font-semibold text-[#3E2417] mb-1">
+                    <label htmlFor="order-name" className="block text-xs font-semibold text-[#3E2417] mb-1">
                       Nama Pemesan <span className="text-[#8A5233]">*</span>
                     </label>
                     <div className="relative">
                       <User className="w-4 h-4 text-[#8A5233] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                       <input
+                        id="order-name"
+                        name="customerName"
                         type="text"
                         required
                         placeholder="Nama kamu..."
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full h-11 pl-10 pr-3.5 bg-white border border-[#D5C2B2] rounded-xl text-sm text-[#2E1A11] placeholder:text-[#5D4232]/50 focus:outline-none focus:ring-2 focus:ring-[#8A5233]/40 focus:border-[#8A5233] transition-all"
+                        className="w-full h-11 pl-10 pr-3.5 bg-white border border-[#D5C2B2] rounded-xl text-sm text-[#2E1A11] placeholder:text-[#5D4232]/50 focus:outline-none focus:ring-2 focus:ring-[#8A5233]/40 focus:border-[#8A5233] transition-colors"
                       />
                     </div>
                   </div>
 
                   {/* WhatsApp / Table Number */}
                   <div>
-                    <label className="block text-xs font-semibold text-[#3E2417] mb-1">
+                    <label htmlFor="order-phone" className="block text-xs font-semibold text-[#3E2417] mb-1">
                       Nomor WhatsApp / Meja (Opsional)
                     </label>
                     <div className="relative">
                       <Phone className="w-4 h-4 text-[#8A5233] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                       <input
+                        id="order-phone"
+                        name="phoneNumber"
                         type="text"
                         placeholder="0812xxxx atau Meja No. 04"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        className="w-full h-11 pl-10 pr-3.5 bg-white border border-[#D5C2B2] rounded-xl text-sm text-[#2E1A11] placeholder:text-[#5D4232]/50 focus:outline-none focus:ring-2 focus:ring-[#8A5233]/40 focus:border-[#8A5233] transition-all"
+                        className="w-full h-11 pl-10 pr-3.5 bg-white border border-[#D5C2B2] rounded-xl text-sm text-[#2E1A11] placeholder:text-[#5D4232]/50 focus:outline-none focus:ring-2 focus:ring-[#8A5233]/40 focus:border-[#8A5233] transition-colors"
                       />
                     </div>
                   </div>
@@ -204,13 +214,15 @@ export default function OrderModal({ isOpen, onClose }) {
                   {/* Menu Selection & Quantity */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div className="sm:col-span-2">
-                      <label className="block text-xs font-semibold text-[#3E2417] mb-1">
+                      <label htmlFor="order-menu-select" className="block text-xs font-semibold text-[#3E2417] mb-1">
                         Pilihan Menu
                       </label>
                       <select
+                        id="order-menu-select"
+                        name="menuItem"
                         value={selectedItem}
                         onChange={(e) => setSelectedItem(e.target.value)}
-                        className="w-full h-11 px-3 bg-white border border-[#D5C2B2] rounded-xl text-xs sm:text-sm text-[#2E1A11] focus:outline-none focus:ring-2 focus:ring-[#8A5233]/40 focus:border-[#8A5233] transition-all cursor-pointer truncate"
+                        className="w-full h-11 px-3 bg-white border border-[#D5C2B2] rounded-xl text-xs sm:text-sm text-[#2E1A11] focus:outline-none focus:ring-2 focus:ring-[#8A5233]/40 focus:border-[#8A5233] transition-colors cursor-pointer truncate"
                       >
                         {MENU_OPTIONS.map((item) => (
                           <option key={item.id} value={item.id}>
@@ -221,12 +233,13 @@ export default function OrderModal({ isOpen, onClose }) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-[#3E2417] mb-1">
+                      <span className="block text-xs font-semibold text-[#3E2417] mb-1">
                         Jumlah
-                      </label>
+                      </span>
                       <div className="flex items-center justify-between h-11 bg-white border border-[#D5C2B2] rounded-xl px-2">
                         <button
                           type="button"
+                          aria-label="Kurangi jumlah pesanan"
                           onClick={() => setQuantity(Math.max(1, quantity - 1))}
                           className="w-8 h-8 rounded-lg bg-[#2E1A11]/5 hover:bg-[#2E1A11]/15 text-[#2E1A11] flex items-center justify-center transition-colors cursor-pointer"
                         >
@@ -235,6 +248,7 @@ export default function OrderModal({ isOpen, onClose }) {
                         <span className="text-sm font-bold text-[#2E1A11] px-2">{quantity}</span>
                         <button
                           type="button"
+                          aria-label="Tambah jumlah pesanan"
                           onClick={() => setQuantity(quantity + 1)}
                           className="w-8 h-8 rounded-lg bg-[#2E1A11]/5 hover:bg-[#2E1A11]/15 text-[#2E1A11] flex items-center justify-center transition-colors cursor-pointer"
                         >
@@ -246,15 +260,17 @@ export default function OrderModal({ isOpen, onClose }) {
 
                   {/* Notes */}
                   <div>
-                    <label className="block text-xs font-semibold text-[#3E2417] mb-1">
+                    <label htmlFor="order-notes" className="block text-xs font-semibold text-[#3E2417] mb-1">
                       Catatan Tambahan (Opsional)
                     </label>
                     <input
+                      id="order-notes"
+                      name="additionalNotes"
                       type="text"
                       placeholder="Contoh: Less ice, oat milk..."
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      className="w-full h-10 px-3.5 bg-white border border-[#D5C2B2] rounded-xl text-xs sm:text-sm text-[#2E1A11] placeholder:text-[#5D4232]/50 focus:outline-none focus:ring-2 focus:ring-[#8A5233]/40 focus:border-[#8A5233] transition-all"
+                      className="w-full h-10 px-3.5 bg-white border border-[#D5C2B2] rounded-xl text-xs sm:text-sm text-[#2E1A11] placeholder:text-[#5D4232]/50 focus:outline-none focus:ring-2 focus:ring-[#8A5233]/40 focus:border-[#8A5233] transition-colors"
                     />
                   </div>
                 </form>
